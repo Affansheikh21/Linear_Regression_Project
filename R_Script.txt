@@ -1,0 +1,38 @@
+trial=read.csv("E:\\OnlineNewsPopularity.csv",header=T)
+
+trial=trial[complete.cases(trial),]
+nrow(trial)
+
+
+cor(trial)
+
+
+
+model10<-lm(shares~n_tokens_title+n_tokens_content+n_unique_tokens+num_hrefs+num_self_hrefs+num_imgs+num_videos+average_token_length+num_keywords+data_channel_is_lifestyle+data_channel_is_entertainment+data_channel_is_bus+data_channel_is_socmed+data_channel_is_tech+data_channel_is_world+kw_avg_min++kw_max_avg+kw_avg_avg+self_reference_avg_sharess+weekday_is_monday+weekday_is_tuesday+weekday_is_wednesday+weekday_is_thursday+weekday_is_friday+ weekday_is_saturday+LDA_00+LDA_01+LDA_02+LDA_03+LDA_04+global_subjectivity+global_sentiment_polarity+global_rate_positive_words+global_rate_negative_words+ global_rate_negative_words+avg_positive_polarity+avg_negative_polarity+title_sentiment_polarity,data = trial)
+summary(model10)
+model10<-lm(shares~n_tokens_title+n_tokens_content+n_unique_tokens+num_hrefs+num_self_hrefs+num_imgs+num_videos+average_token_length+num_keywords+data_channel_is_lifestyle+data_channel_is_entertainment+data_channel_is_bus+data_channel_is_socmed+data_channel_is_tech+data_channel_is_world+kw_avg_min++kw_max_avg+kw_avg_avg+self_reference_avg_sharess+weekday_is_monday+weekday_is_tuesday+weekday_is_wednesday+weekday_is_thursday+weekday_is_friday+ weekday_is_saturday+LDA_00+LDA_01+LDA_02+LDA_03+LDA_04+global_subjectivity+global_rate_positive_words+global_rate_negative_words+avg_positive_polarity+avg_negative_polarity+title_sentiment_polarity,data = trial)
+
+summary(model10)
+
+
+trainingrow=sample(1:nrow(trial), 0.7*nrow(trial))
+
+trainingdata=trial[trainingrow, ]
+
+testdata=trial[-trainingrow, ]
+
+model10<-lm(shares~n_tokens_title+n_tokens_content+n_unique_tokens+num_hrefs+num_self_hrefs+num_imgs+num_videos+average_token_length+num_keywords+data_channel_is_lifestyle+data_channel_is_entertainment+data_channel_is_bus+data_channel_is_socmed+data_channel_is_tech+data_channel_is_world+kw_avg_min++kw_max_avg+kw_avg_avg+self_reference_avg_sharess+weekday_is_monday+weekday_is_tuesday+weekday_is_wednesday+weekday_is_thursday+weekday_is_friday+ weekday_is_saturday+LDA_00+LDA_01+LDA_02+LDA_03+LDA_04+global_subjectivity+global_rate_positive_words+global_rate_negative_words+avg_positive_polarity+avg_negative_polarity+title_sentiment_polarity,data = trainingdata)
+
+sharesprediction=predict(model10, testdata)
+
+actualprediction=data.frame(cbind(actuals=testdata$shares,
+predicted=sharespred))
+
+howaccurate=cor(actualprediction)
+
+howaccurate
+
+actualpred
+
+iction
+
